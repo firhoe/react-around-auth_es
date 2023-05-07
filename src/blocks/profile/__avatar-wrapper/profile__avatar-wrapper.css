@@ -1,0 +1,14 @@
+.profile__avatar-wrapper {
+  border-radius: 50%;
+  height: 120px;
+  overflow: hidden;
+  position: relative;
+  width: 120px;
+}
+
+@media (max-width: 768px) {
+  .profile__avatar-wrapper {
+    margin-bottom: 30px;
+    margin-right: 0;
+  }
+}
