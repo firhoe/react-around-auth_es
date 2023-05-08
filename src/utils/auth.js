@@ -1,45 +1,43 @@
-class Auth {
-  constructor({baseUrl, headers}) {
-    this._baseUrl = baseUrl;
-    this._headers = headers;
-  }
+export const API_BASE_URL = 'https://register.nomoreparties.co';
 
-  _handleServerResponse(res) {
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-  }
+export const registerUser = (password, email) => {
+  return fetch(`${API_BASE_URL}/signup`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({password, email}),
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .catch((err) => console.log(err));
+};
 
-  register({email, password}) {
-    return fetch(`${this._baseUrl}/signup`, {
-      method: 'POST',
-      headers: this._headers,
-      body: JSON.stringify({email, password}),
-    }).then(this._handleServerResponse);
-  }
+export const loginUser = (password, email) => {
+  return fetch(`${API_BASE_URL}/signin`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({password, email}),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.token) {
+        localStorage.setItem('jwt', data.token);
+        return data;
+      }
+    })
+    .catch((err) => console.log(err));
+};
 
-  login({email, password}) {
-    return fetch(`${this._baseUrl}/signin`, {
-      method: 'POST',
-      headers: this._headers,
-      body: JSON.stringify({email, password}),
-    }).then(this._handleServerResponse);
-  }
-
-  checkToken(token) {
-    return fetch(`${this._baseUrl}/users/me`, {
-      method: 'GET',
-      headers: {
-        ...this._headers,
-        Authorization: `Bearer ${token}`,
-      },
-    }).then(this._handleServerResponse);
-  }
-}
-
-const auth = new Auth({
-  baseUrl: 'https://register.nomoreparties.co',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
-
-export default auth;
+export const checkToken = (token) => {
+  return fetch(`${API_BASE_URL}/users/me`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((res) => res.json());
+};
