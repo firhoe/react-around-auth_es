@@ -1,12 +1,3 @@
-Around the U.S. project on React, featuring authorization and registration.
-
-This repository will contain your own front-end project on React with added authorization and registration features.
-Start working with your previously built front end code from Sprint 11.
-
-
-
-Good luck!
-
 # Proyecto Portafolio: "Around the U.S." (React JS App) 🗺️​
 
 ### Descripción general ⚙️
