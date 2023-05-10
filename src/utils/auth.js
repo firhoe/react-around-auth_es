@@ -1,6 +1,6 @@
 export const API_BASE_URL = 'https://register.nomoreparties.co';
 
-export const registerUser = (password, email) => {
+export const register = (password, email) => {
   return fetch(`${API_BASE_URL}/signup`, {
     method: 'POST',
     headers: {
@@ -14,7 +14,7 @@ export const registerUser = (password, email) => {
     .catch((err) => console.log(err));
 };
 
-export const loginUser = (password, email) => {
+export const authorize = (password, email) => {
   return fetch(`${API_BASE_URL}/signin`, {
     method: 'POST',
     headers: {
